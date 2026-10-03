@@ -22,6 +22,8 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['apierror'] = 'The dashboard could not be prepared.';
 $string['beststreak'] = 'Personal best: {$a} days';
 $string['blocksettings'] = 'Cards and order';
