@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Optional integration tests.
@@ -24,48 +24,20 @@
 
 namespace block_personalprogress;
 
-defined('MOODLE_INTERNAL') || die;
-
 use block_personalprogress\integration\optional_integrations;
 
 /**
- * Test fixture that simulates public APIs without installing optional plugins.
- */
-class optional_integrations_fixture extends optional_integrations {
-    /** @var array */
-    private $responses;
-
-    /**
-     * @param array $responses
-     */
-    public function __construct(array $responses) {
-        $this->responses = $responses;
-    }
-
-    /**
-     * Return fixture responses keyed by plugin name.
-     *
-     * @param string $plugintype
-     * @param string $pluginname
-     * @param array $methods
-     * @param array $arguments
-     * @return array|null
-     */
-    protected function call_api(string $plugintype, string $pluginname, array $methods, array $arguments): ?array {
-        return $this->responses[$plugintype . '_' . $pluginname] ?? null;
-    }
-}
-
-/**
  * Optional plugin presence/absence behaviour.
+ *
+ * @covers \block_personalprogress\integration\optional_integrations
  */
-class optional_integrations_test extends \advanced_testcase {
+final class optional_integrations_test extends \advanced_testcase {
     /**
      * Missing plugins return unavailable sections and do not throw.
      */
     public function test_optional_plugins_absent(): void {
         $this->resetAfterTest(true);
-        $adapter = new optional_integrations_fixture([]);
+        $adapter = $this->create_adapter([]);
 
         $this->assertFalse($adapter->get_streak(1, 2)['available']);
         $this->assertFalse($adapter->get_goals(1, 2)['available']);
@@ -79,7 +51,7 @@ class optional_integrations_test extends \advanced_testcase {
      */
     public function test_optional_plugins_present(): void {
         $this->resetAfterTest(true);
-        $adapter = new optional_integrations_fixture([
+        $adapter = $this->create_adapter([
             'block_personalstreak' => ['current' => 6, 'best' => 14],
             'local_personalgoals' => ['active' => 3, 'completed' => 2],
             'local_xpquests' => ['active' => 1],
@@ -92,5 +64,40 @@ class optional_integrations_test extends \advanced_testcase {
         $this->assertSame(['available' => true, 'active' => 1], $adapter->get_quests(1, 2));
         $this->assertSame(['available' => true, 'earned' => 12], $adapter->get_milestones(1, 2));
         $this->assertSame(['available' => true, 'credits' => 320], $adapter->get_wallet(1, 2));
+    }
+
+    /**
+     * Create an adapter fixture backed by supplied API responses.
+     *
+     * @param array $responses Responses keyed by component.
+     * @return optional_integrations
+     */
+    private function create_adapter(array $responses): optional_integrations {
+        return new class($responses) extends optional_integrations {
+            /** @var array */
+            private array $responses;
+
+            /**
+             * Store fixture responses.
+             *
+             * @param array $responses Responses keyed by component.
+             */
+            public function __construct(array $responses) {
+                $this->responses = $responses;
+            }
+
+            /**
+             * Return fixture responses keyed by plugin name.
+             *
+             * @param string $plugintype Plugin type.
+             * @param string $pluginname Plugin name.
+             * @param array $methods Candidate public methods.
+             * @param array $arguments Method arguments.
+             * @return array|null
+             */
+            protected function call_api(string $plugintype, string $pluginname, array $methods, array $arguments): ?array {
+                return $this->responses[$plugintype . '_' . $pluginname] ?? null;
+            }
+        };
     }
 }
