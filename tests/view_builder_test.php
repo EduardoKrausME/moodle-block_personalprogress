@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * View model tests.
@@ -24,14 +24,15 @@
 
 namespace block_personalprogress;
 
-defined('MOODLE_INTERNAL') || die;
 
 use block_personalprogress\view\dashboard_builder;
 
 /**
  * Card visibility, ordering and friendly states.
+ *
+ * @covers \block_personalprogress\view\dashboard_builder
  */
-class view_builder_test extends \advanced_testcase {
+final class view_builder_test extends \advanced_testcase {
     /**
      * Only available optional plugins produce optional cards.
      */
