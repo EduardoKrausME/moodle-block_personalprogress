@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Public aggregation API.
@@ -24,7 +24,6 @@
 
 namespace block_personalprogress;
 
-defined('MOODLE_INTERNAL') || die;
 
 use block_personalprogress\integration\optional_integrations;
 use block_personalprogress\provider\course_provider;
@@ -147,7 +146,9 @@ class api {
 
         $context = \context_course::instance($courseid);
         require_capability('block/personalprogress:view', $context);
-        require_capability('moodle/course:view', $context);
+        if (!is_enrolled($context, $USER, '', true)) {
+            require_capability('moodle/course:view', $context);
+        }
 
         if ($userid !== (int)$USER->id) {
             require_capability('block/personalprogress:viewothers', $context);
