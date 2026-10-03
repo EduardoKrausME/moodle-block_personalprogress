@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * API tests.
@@ -24,15 +24,17 @@
 
 namespace block_personalprogress;
 
-defined('MOODLE_INTERNAL') || die;
 
 use block_personalprogress\provider\personalxp_provider;
 use local_personalxp\service\xp_manager;
 
 /**
  * Aggregation, access, period and cache tests.
+ *
+ * @covers \block_personalprogress\api
+ * @covers \block_personalprogress\provider\personalxp_provider
  */
-class api_test extends \advanced_testcase {
+final class api_test extends \advanced_testcase {
     /**
      * Create an enrolled student and make them current user.
      *
@@ -116,10 +118,12 @@ class api_test extends \advanced_testcase {
      * The view capability is enforced even for the current user.
      */
     public function test_view_capability_is_required(): void {
+        global $DB;
+
         $this->resetAfterTest(true);
         [$course, $user] = $this->create_fixture();
         $context = \context_course::instance($course->id);
-        $studentrole = role_get_id_from_archetype('student');
+        $studentrole = (int)$DB->get_field('role', 'id', ['archetype' => 'student'], MUST_EXIST);
         assign_capability('block/personalprogress:view', CAP_PROHIBIT, $studentrole, $context->id, true);
 
         $this->expectException(\required_capability_exception::class);
