@@ -73,7 +73,7 @@ final class optional_integrations_test extends \advanced_testcase {
      * @return optional_integrations
      */
     private function create_adapter(array $responses): optional_integrations {
-        return new class($responses) extends optional_integrations {
+        return new class ($responses) extends optional_integrations {
             /** @var array */
             private array $responses;
 
