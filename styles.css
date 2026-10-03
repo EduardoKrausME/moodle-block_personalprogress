@@ -1,0 +1,186 @@
+.block_personalprogress {
+    .card-body {
+        padding: .75rem;
+    }
+
+    .block-personalprogress-root {
+        min-width: 0;
+    }
+
+    .block-personalprogress-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(8.25rem, 1fr));
+        gap: .5rem;
+    }
+
+    .block-personalprogress-card,
+    .block-personalprogress-chartcard {
+        min-width: 0;
+        padding: .65rem .7rem;
+        border: 1px solid rgba(0, 0, 0, .10);
+        border-radius: .65rem;
+        background: var(--bs-body-bg, #fff);
+    }
+
+    .block-personalprogress-chartcard {
+        margin-top: .5rem;
+    }
+
+    .block-personalprogress-card-label {
+        margin-bottom: .2rem;
+        color: var(--bs-secondary-color, #5c636a);
+        font-size: .72rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-transform: uppercase;
+        letter-spacing: .025em;
+    }
+
+    .block-personalprogress-value {
+        overflow-wrap: anywhere;
+        color: var(--bs-body-color, #212529);
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    .block-personalprogress-secondary,
+    .block-personalprogress-empty,
+    .block-personalprogress-course,
+    .block-personalprogress-notice {
+        color: var(--bs-secondary-color, #5c636a);
+        font-size: .78rem;
+        line-height: 1.35;
+    }
+
+    .block-personalprogress-notice {
+        margin-bottom: .5rem;
+        padding: .5rem .6rem;
+        border-radius: .5rem;
+        background: rgba(0, 0, 0, .035);
+    }
+
+    .block-personalprogress-progressline {
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        margin-top: .45rem;
+    }
+
+    .block-personalprogress-progress {
+        flex: 1 1 auto;
+        height: .38rem;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, .09);
+    }
+
+    .block-personalprogress-progress > span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: currentColor;
+    }
+
+    .block-personalprogress-progresslabel {
+        flex: 0 0 auto;
+        font-size: .7rem;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .block-personalprogress-chart {
+        display: grid;
+        grid-template-columns: repeat(8, minmax(1.7rem, 1fr));
+        gap: .25rem;
+        align-items: end;
+        min-height: 7.25rem;
+        margin-top: .45rem;
+    }
+
+    .block-personalprogress-week {
+        display: grid;
+        grid-template-rows: auto 4.2rem auto;
+        gap: .2rem;
+        min-width: 0;
+        text-align: center;
+    }
+
+    .block-personalprogress-weekvalue {
+        overflow: hidden;
+        font-size: .64rem;
+        line-height: 1.1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .block-personalprogress-bartrack {
+        position: relative;
+        align-self: stretch;
+        overflow: hidden;
+        border-radius: .3rem;
+        background: rgba(0, 0, 0, .05);
+    }
+
+    .block-personalprogress-bar {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: .3rem .3rem 0 0;
+        background: currentColor;
+    }
+
+    .block-personalprogress-weeklabel {
+        overflow: hidden;
+        color: var(--bs-secondary-color, #5c636a);
+        font-size: .62rem;
+        line-height: 1.1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .block-personalprogress-skeleton {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .5rem;
+    }
+
+    .block-personalprogress-skeleton span {
+        display: block;
+        height: 4rem;
+        border-radius: .65rem;
+        background: linear-gradient(90deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .11), rgba(0, 0, 0, .05));
+        background-size: 220% 100%;
+        animation: block-personalprogress-loading 1.2s ease-in-out infinite;
+    }
+
+    @media (max-width: 480px) {
+        .block-personalprogress-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .block-personalprogress-chart {
+            gap: .15rem;
+        }
+
+        .block-personalprogress-weekvalue {
+            font-size: .58rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .block-personalprogress-skeleton span {
+            animation: none;
+        }
+    }
+}
+
+@keyframes block-personalprogress-loading {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}

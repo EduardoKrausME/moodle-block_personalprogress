@@ -1,0 +1,16 @@
+{{!
+    Initial AJAX container and skeleton.
+}}
+<div id="{{rootid}}"
+     class="block-personalprogress-root"
+     aria-live="polite"
+     aria-busy="true"
+     data-error-label="{{#str}}loaderror, block_personalprogress{{/str}}">
+    <span class="sr-only">{{loadinglabel}}</span>
+    <div class="block-personalprogress-skeleton" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>

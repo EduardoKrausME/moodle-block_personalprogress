@@ -1,0 +1,64 @@
+{{!
+    Compact personal progress dashboard.
+}}
+<div class="block-personalprogress-dashboard">
+    {{#shownodata}}
+        <div class="block-personalprogress-notice">{{nodatamessage}}</div>
+    {{/shownodata}}
+
+    {{#hascards}}
+        <div class="block-personalprogress-grid">
+            {{#cards}}
+                <section class="block-personalprogress-card block-personalprogress-card-{{key}}" aria-label="{{label}}">
+                    <div class="block-personalprogress-card-label">{{label}}</div>
+                    {{#isempty}}
+                        <div class="block-personalprogress-empty">{{emptymessage}}</div>
+                    {{/isempty}}
+                    {{^isempty}}
+                        <div class="block-personalprogress-value">{{value}}</div>
+                        {{#hassecondary}}
+                            <div class="block-personalprogress-secondary">{{secondary}}</div>
+                        {{/hassecondary}}
+                        {{#showprogress}}
+                            <div class="block-personalprogress-progressline">
+                                <div class="block-personalprogress-progress"
+                                     role="progressbar"
+                                     aria-label="{{label}}: {{progresslabel}}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="{{progress}}">
+                                    <span style="width: {{progress}}%;"></span>
+                                </div>
+                                <span class="block-personalprogress-progresslabel">{{progresslabel}}</span>
+                            </div>
+                        {{/showprogress}}
+                    {{/isempty}}
+                </section>
+            {{/cards}}
+        </div>
+    {{/hascards}}
+
+    {{#chart}}
+        {{#show}}
+            <section class="block-personalprogress-chartcard">
+                <div class="block-personalprogress-card-label">{{label}}</div>
+                {{#empty}}
+                    <div class="block-personalprogress-empty">{{emptymessage}}</div>
+                {{/empty}}
+                {{^empty}}
+                    <div class="block-personalprogress-chart" role="list" aria-label="{{arialabel}}">
+                        {{#weeks}}
+                            <div class="block-personalprogress-week" role="listitem" aria-label="{{arialabel}}">
+                                <span class="block-personalprogress-weekvalue">{{valueformatted}}</span>
+                                <div class="block-personalprogress-bartrack" aria-hidden="true">
+                                    <span class="block-personalprogress-bar" style="height: {{height}}%;"></span>
+                                </div>
+                                <span class="block-personalprogress-weeklabel">{{label}}</span>
+                            </div>
+                        {{/weeks}}
+                    </div>
+                {{/empty}}
+            </section>
+        {{/show}}
+    {{/chart}}
+</div>
