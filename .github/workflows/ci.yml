@@ -66,8 +66,22 @@ jobs:
         sudo locale-gen en_AU.UTF-8
         echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
+    - name: Check out Personal XP dependency
+      uses: actions/checkout@v4
+      with:
+        repository: EduardoKrausME/moodle-local_personalxp
+        ref: master
+        path: extra-plugins/local_personalxp
+
+    - name: Check out AI Bridge dependency
+      uses: actions/checkout@v4
+      with:
+        repository: EduardoKrausME/moodle-local_ai_bridge
+        ref: master
+        path: extra-plugins/local_ai_bridge
+
     - name: Install moodle-plugin-ci
-      run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+      run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --extra-plugins ./extra-plugins
       env:
         DB: ${{ matrix.database }}
         MOODLE_BRANCH: ${{ matrix.config.moodle }}
