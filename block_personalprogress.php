@@ -22,6 +22,10 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
+
 use block_personalprogress\api;
 use block_personalprogress\view\dashboard_builder;
 
