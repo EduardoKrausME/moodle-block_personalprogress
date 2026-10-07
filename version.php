@@ -28,7 +28,7 @@ $plugin->release = '1.0.2';
 $plugin->version = 2026100500;
 $plugin->component = 'block_personalprogress';
 $plugin->requires = 2022112800; // Moodle 4.1.
-$plugin->maturity = MATURITY_BETA;
+$plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
     'local_personalxp' => 2026100300,
 ];
