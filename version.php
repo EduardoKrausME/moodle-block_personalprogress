@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->release = '1.0.4';
-$plugin->version = 2026101200;
+$plugin->release = '1.0.5';
+$plugin->version = 2026101400;
 $plugin->component = 'block_personalprogress';
 $plugin->requires = 2022112800; // Moodle 4.1.
 $plugin->maturity = MATURITY_STABLE;
